@@ -1,8 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import net.skullian.zenith.model.ZenithModules
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-
 plugins {
     `java-library`
 
@@ -12,6 +10,7 @@ plugins {
 }
 
 val libs = the<LibrariesForLibs>()
+version = libs.versions.version.get()
 
 repositories {
     mavenCentral()

@@ -1,4 +1,8 @@
 [versions]
+version = "1.0.0-dev.1"
+
+paper = "1.21.11"
+bytebuddy = "1.18.8"
 
 # kt
 coroutines = "1.10.2"
@@ -6,7 +10,7 @@ coroutines = "1.10.2"
 # plugins
 shadow = "9.4.1"
 blossom = "2.2.0"
-zenith-gradle = "1.1.6"
+zenith-gradle = "1.1.7"
 gradle-git-version = "4.3.0"
 
 [libraries]
@@ -18,5 +22,9 @@ plugin-git-version = { module = "com.palantir.git-version:com.palantir.git-versi
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
 
+bytebuddy = { module = "net.bytebuddy:byte-buddy", version.ref = "bytebuddy" }
+bytebuddy-agent = { module = "net.bytebuddy:byte-buddy-agent", version.ref = "bytebuddy" }
+
 [bundles]
+bytebuddy = [ "bytebuddy", "bytebuddy-agent" ]
 kotlin-ext = [ "kotlin-coroutines", "kotlin-coroutines-reactive" ]
