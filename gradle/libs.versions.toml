@@ -1,0 +1,22 @@
+[versions]
+
+# kt
+coroutines = "1.10.2"
+
+# plugins
+shadow = "9.4.1"
+blossom = "2.2.0"
+zenith-gradle = "1.1.6"
+gradle-git-version = "4.3.0"
+
+[libraries]
+plugin-shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+plugin-blossom = { module = "net.kyori.blossom:net.kyori.blossom.gradle.plugin", version.ref = "blossom" }
+plugin-zenith = { module = "net.skullian.zenith:net.skullian.zenith.gradle.plugin", version.ref = "zenith-gradle" }
+plugin-git-version = { module = "com.palantir.git-version:com.palantir.git-version.gradle.plugin", version.ref = "gradle-git-version" }
+
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
+
+[bundles]
+kotlin-ext = [ "kotlin-coroutines", "kotlin-coroutines-reactive" ]
