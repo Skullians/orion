@@ -1,5 +1,6 @@
 package net.skullian.orion.alert
 
+import net.skullian.orion.api.alert.AlertSender
 import net.skullian.orion.api.event.ViolationEvent
 import net.skullian.zenith.core.ZenithPlatform
 import net.skullian.zenith.core.event.EventPriority
@@ -24,9 +25,6 @@ object AlertService : ZenithListener {
 
     @Subscribe(priority = EventPriority.MONITOR)
     private fun onViolation(event: ViolationEvent) {
-        val violation = event.violation
-        val info = violation.check.info
-
-        // todo
+        AlertSender.instance.dispatch(event.violation)
     }
 }

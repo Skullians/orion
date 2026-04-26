@@ -5,6 +5,7 @@ import net.skullian.orion.api.event.Violation
 import net.skullian.orion.api.event.ViolationEvent
 import net.skullian.orion.api.user.OrionPlayer
 import net.skullian.orion.api.util.StackWalker
+import net.skullian.orion.api.violation.ViolationTracker
 import net.skullian.zenith.core.ZenithPlatform
 
 /**
@@ -17,15 +18,17 @@ object Violations {
 
     @JvmStatic
     fun flag(player: OrionPlayer?, check: Check, details: String = "") {
-        val stack = StackWalker.resolve()
-        val context = Violation(
+        val name = check.info.name
+        player?.let { ViolationTracker.instance.record(it, check) }
+
+        val stack = runCatching { StackWalker.resolve() }.getOrNull()
+        val violation = Violation(
             player = player,
             check = check,
             details = details,
             stack = stack
         )
 
-        val event = ViolationEvent(context)
-        ZenithPlatform.getInstance().eventBus.emit(event)
+        ZenithPlatform.getInstance().eventBus.emit(ViolationEvent(violation))
     }
 }
