@@ -9,7 +9,7 @@ import java.io.File
  * @author Skullians
  * @since 25/04/2026
  */
-internal object AgentInstaller {
+object AgentInstaller {
 
     fun install(agentJar: File): Boolean {
         if (AgentLoader.get() != null) return true

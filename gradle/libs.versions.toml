@@ -2,6 +2,7 @@
 version = "1.0.0-dev.1"
 
 paper = "1.21.11"
+configlib = "4.8.1"
 bytebuddy = "1.18.8"
 
 # kt
@@ -22,6 +23,7 @@ plugin-git-version = { module = "com.palantir.git-version:com.palantir.git-versi
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
 
+configlib = { module = "de.exlll:configlib-yaml", version.ref = "configlib" }
 bytebuddy = { module = "net.bytebuddy:byte-buddy", version.ref = "bytebuddy" }
 bytebuddy-agent = { module = "net.bytebuddy:byte-buddy-agent", version.ref = "bytebuddy" }
 

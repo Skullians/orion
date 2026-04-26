@@ -1,7 +1,8 @@
 package net.skullian.orion.api.event
 
 import net.skullian.orion.api.check.Check
-import java.util.UUID
+import net.skullian.orion.api.user.OrionPlayer
+import net.skullian.orion.api.util.StackWalker
 
 /**
  * Represents a violation of a check by a player.
@@ -14,7 +15,8 @@ import java.util.UUID
  * @since 25/04/2026
  */
 data class Violation(
-    val player: UUID,
+    val player: OrionPlayer?,
     val check: Check,
     val details: String = "",
+    val stack: StackWalker.StackSummary? = null
 )

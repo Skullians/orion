@@ -1,6 +1,5 @@
 import net.skullian.zenith.model.ZenithModules
 import net.skullian.zenith.paper
-import net.skullian.zenith.platform.paper.PaperPluginYml
 
 plugins {
     orion.common
@@ -13,7 +12,7 @@ zenith {
 }
 
 dependencies {
-    api(project(":api"))
+    api(project(":common"))
 
     paper(libs.versions.paper.get())
     implementation(libs.bundles.bytebuddy)
@@ -21,15 +20,6 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
     implementation(libs.bundles.kotlin.ext)
-}
-
-tasks {
-    processResources {
-        from(project(":agent").tasks.named("shadowJar")) {
-            rename { "agent.jar" }
-            into(".")
-        }
-    }
 }
 
 plugin {

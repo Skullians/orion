@@ -8,7 +8,8 @@ pluginManagement {
 rootProject.name = "orion"
 
 include(
-    "agent",
     "api",
+    "agent",
+    "common",
     "plugin"
 )

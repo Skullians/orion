@@ -1,12 +1,15 @@
 package net.skullian.orion
 
 import net.skullian.orion.agent.AgentInstaller
-import net.skullian.orion.agent.AgentLoader
+import net.skullian.orion.api.OrionApi
 import net.skullian.orion.api.check.CheckRegistry
 import net.skullian.orion.api.check.annotation.CheckInfo
+import net.skullian.orion.api.user.OrionPlayer
+import net.skullian.zenith.core.ZenithPlatform
 import net.skullian.zenith.core.flavor.Flavor
 import net.skullian.zenith.core.flavor.FlavorOptions
 import net.skullian.zenith.core.logging.adapters.impl.JavaLogAdapter
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -21,13 +24,17 @@ import java.nio.file.StandardCopyOption
  * @author Skullians
  * @since 25/04/2026
  */
-class Orion : JavaPlugin() {
+class Orion : ZenithPlatform, OrionApi, JavaPlugin() {
 
     private lateinit var flavor: Flavor
 
-    override fun onLoad() {
+    init {
+        ZenithPlatform.PlatformHolder.setInstance(this)
+        OrionApi.instance = this
         instance = this
+    }
 
+    override fun onLoad() {
         flavor = Flavor.create(
             this,
             FlavorOptions(JavaLogAdapter(logger), this.javaClass.packageName)
@@ -64,6 +71,14 @@ class Orion : JavaPlugin() {
         flavor.close()
     }
 
+    override fun getFlavor(): Flavor {
+        return this.flavor
+    }
+
+    override fun reload() {
+        flavor.reflections.invokeMethodsAnnotatedWith(Reload::class.java)
+    }
+
     private fun extractAgent(): File {
         val target = File(dataFolder, "agent.jar")
         dataFolder.mkdirs()
@@ -71,6 +86,23 @@ class Orion : JavaPlugin() {
             Files.copy(input, target.toPath(), StandardCopyOption.REPLACE_EXISTING)
         }
         return target
+    }
+
+    override fun resolveAddon(clazz: Class<*>): String? {
+        val loader = clazz.classLoader ?: return null
+        return Bukkit.getPluginManager().plugins
+            .firstOrNull { plugin ->
+                plugin.javaClass.classLoader == loader || generateSequence(loader) { it.parent }.any { it == plugin.javaClass.classLoader }
+            }
+            ?.name
+    }
+
+    override fun adapt(handle: Any): OrionPlayer {
+        TODO("Not yet implemented")
+    }
+
+    override fun adapt(player: OrionPlayer): Any {
+        TODO("Not yet implemented")
     }
 
     companion object {

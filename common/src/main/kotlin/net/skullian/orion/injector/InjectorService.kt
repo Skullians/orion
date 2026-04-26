@@ -2,7 +2,6 @@ package net.skullian.orion.injector
 
 import net.bytebuddy.agent.builder.AgentBuilder
 import net.bytebuddy.matcher.ElementMatchers.none
-import net.skullian.orion.Orion
 import net.skullian.orion.agent.AgentLoader
 import net.skullian.orion.api.check.CheckRegistry
 import net.skullian.zenith.core.flavor.annotation.Configure
@@ -19,13 +18,15 @@ import java.util.logging.Logger
 @Service
 object InjectorService {
 
+    @Inject private lateinit var logger: Logger
+
     @Configure
     private fun configure() {
         val instrumentation = AgentLoader.require()
 
         val checks = CheckRegistry.all
         if (checks.isEmpty()) {
-            return Orion.instance.logger.severe("No checks were registered. Orion will be non functional")
+            return logger.severe("No checks were registered. Orion will be non functional")
         }
 
         var builder: AgentBuilder = AgentBuilder.Default()
