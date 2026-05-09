@@ -6,7 +6,7 @@ configlib = "4.8.1"
 bytebuddy = "1.18.8"
 
 # kt
-coroutines = "1.10.2"
+coroutines = "1.11.0"
 
 # plugins
 shadow = "9.4.1"
